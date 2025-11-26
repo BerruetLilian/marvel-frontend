@@ -1,15 +1,20 @@
 import "./carrousel.css";
 import CharacterCard from "../CharacterCard/CharacterCard";
+import PageNav from "../PageNav/PageNav";
 
-const Carrousel = ({ data }) => {
+const Carrousel = ({ data, count, currentPage, setSearchParams }) => {
   return (
     <>
-      {data.map((element, index) => {
-        if (index === 0) {
-          console.log(element);
-        }
-        return <CharacterCard key={element._id} character={element} />;
-      })}
+      <div className="carrousel">
+        {data.map((element) => {
+          return <CharacterCard key={element._id} character={element} />;
+        })}
+      </div>
+      <PageNav
+        lastPage={Math.ceil(count / 100)}
+        currentPage={currentPage}
+        setSearchParams={setSearchParams}
+      />
     </>
   );
 };

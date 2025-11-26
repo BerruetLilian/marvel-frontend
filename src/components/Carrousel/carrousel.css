@@ -1,0 +1,6 @@
+.carrousel {
+  height: 500px;
+  overflow: scroll;
+  display: flex;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,17 @@
+.page-nav {
+  display: flex;
+  align-items: center;
+}
+.page-nav input {
+  border: none;
+  text-align: center;
+  width: 100px;
+}
+
+.page-nav .show-input {
+  height: 45px;
+}
+
+.page-nav a {
+  margin: 5px;
+}

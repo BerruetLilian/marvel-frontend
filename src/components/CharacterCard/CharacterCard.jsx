@@ -1,16 +1,12 @@
 import "./characterCard.css";
+import getThumbnailUrl from "../../utils/getThumbnailURL";
 
 const CharacterCard = ({ character }) => {
   return (
-    <div>
-      <img
-        src={
-          character.thumbnail.path +
-          "/portrait_medium." +
-          character.thumbnail.extension
-        }
-      />
+    <div className="character-card">
+      <img src={getThumbnailUrl(character, "portrait_medium")} />
       <p>{character.name}</p>
+      <p>{character.description}</p>
     </div>
   );
 };
