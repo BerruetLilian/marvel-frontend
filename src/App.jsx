@@ -13,6 +13,7 @@ import SignUpModal from "./components/SignUpModal/SignUpModal";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
+import ComicPage from "./pages/ComicPage/ComicPage";
 
 //site--marvel-backend--h7xf99wskwy6.code.run
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/characters" element={<CharactersPage />} />
           <Route path="/comics" element={<ComicsPage />} />
           <Route path="/favorites" element={<FavoritesPage token={token} />} />
+          <Route path="/comic/:comicId" element={<ComicPage token={token} />} />
           <Route path="*" element={<Navigate to="/characters" />} />
         </Routes>
         {signUpVisible && (
