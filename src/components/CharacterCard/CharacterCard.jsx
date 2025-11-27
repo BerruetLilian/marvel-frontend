@@ -1,5 +1,5 @@
 import "./characterCard.css";
-import getThumbnailUrl from "../../utils/getThumbnailURL";
+import getThumbnailUrl from "../../utils/getThumbnailUrl.js";
 
 const CharacterCard = ({ character }) => {
   return (

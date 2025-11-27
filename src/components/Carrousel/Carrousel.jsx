@@ -2,7 +2,13 @@ import "./carrousel.css";
 import CharacterCard from "../CharacterCard/CharacterCard";
 import PageNav from "../PageNav/PageNav";
 
-const Carrousel = ({ data, count, currentPage, setSearchParams }) => {
+const Carrousel = ({
+  data,
+  count,
+  currentPage,
+  setSearchParams,
+  urlSearchParams,
+}) => {
   return (
     <>
       <div className="carrousel">
@@ -14,6 +20,7 @@ const Carrousel = ({ data, count, currentPage, setSearchParams }) => {
         lastPage={Math.ceil(count / 100)}
         currentPage={currentPage}
         setSearchParams={setSearchParams}
+        urlSearchParams={urlSearchParams}
       />
     </>
   );

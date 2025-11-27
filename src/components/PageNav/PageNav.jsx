@@ -2,43 +2,69 @@ import { useState } from "react";
 import "./pageNav.css";
 import { Link } from "react-router-dom";
 
-const PageNav = ({ lastPage, currentPage, setSearchParams }) => {
+const PageNav = ({
+  lastPage,
+  currentPage,
+  setSearchParams,
+  urlSearchParams,
+}) => {
   const [showInput, setShowInput] = useState(false);
   const [pageInput, setPageInput] = useState("");
 
   const showPageIndex = () => {
-    if (currentPage < 5 || !currentPage) {
-      return [1, 2, 3, 4, 5, "...", lastPage];
-    } else if (currentPage < lastPage - 4) {
-      return [
-        1,
-        "...",
-        currentPage - 1,
-        currentPage,
-        Number(currentPage) + 1,
-        "...",
-        lastPage,
-      ];
+    // si currentpage <= 7 et lastpage < 7
+    // affiche de 1 à currentPage
+    // sinon
+    // si currentpage <= 5
+    // afficher 1 à 5 + "..." + lastPage
+    // sinon
+    //  currentpage > lastpage -4
+    // afficher 1 + ... + currentpage-1 + currentpage + currentpage+1 + ... + lastpage
+    // currentpage <= lastpage-4
+    // afficher ... + de lastpage-4 à lastpage
+    const results = [];
+    if (lastPage < 7) {
+      for (let i = 1; i <= currentPage; i++) {
+        results.push(i);
+      }
     } else {
-      return [
-        1,
-        "...",
-        lastPage - 4,
-        lastPage - 3,
-        lastPage - 2,
-        lastPage - 1,
-        lastPage,
-      ];
+      if (currentPage <= 5) {
+        for (let i = 1; i <= 5; i++) {
+          results.push(i);
+        }
+        results.push("...");
+        results.push(lastPage);
+      } else {
+        if (currentPage < lastPage - 4) {
+          results.push(1);
+          results.push("...");
+          results.push(currentPage - 1);
+          results.push(currentPage);
+          results.push(Number(currentPage) + 1);
+          results.push("...");
+          results.push(lastPage);
+        } else {
+          results.push(1);
+          results.push("...");
+          for (let i = lastPage - 4; i <= lastPage; i++) {
+            results.push(i);
+          }
+        }
+      }
     }
+    return results;
   };
   return (
     <div className="page-nav">
       <button
         onClick={() => {
           if (currentPage !== "1") {
-            setSearchParams("?page=" + (Number(currentPage) - 1));
+            urlSearchParams.delete("page");
+            urlSearchParams.append("page", currentPage - 1);
+            setSearchParams(urlSearchParams);
           }
         }}
+        disabled={currentPage === "1"}
       >
         {"<"}
       </button>
@@ -48,7 +74,9 @@ const PageNav = ({ lastPage, currentPage, setSearchParams }) => {
             <a
               key={element + index}
               onClick={() => {
-                setSearchParams("?page=" + element);
+                urlSearchParams.delete("page");
+                urlSearchParams.append("page", element);
+                setSearchParams(urlSearchParams);
               }}
             >
               {element}
@@ -61,9 +89,12 @@ const PageNav = ({ lastPage, currentPage, setSearchParams }) => {
       <button
         onClick={() => {
           if (currentPage !== lastPage) {
-            setSearchParams("?page=" + (Number(currentPage) + 1));
+            urlSearchParams.delete("page");
+            urlSearchParams.append("page", Number(currentPage) + 1);
+            setSearchParams(urlSearchParams);
           }
         }}
+        disabled={currentPage === lastPage}
       >
         {">"}
       </button>
@@ -87,8 +118,15 @@ const PageNav = ({ lastPage, currentPage, setSearchParams }) => {
             />
             <button
               onClick={() => {
-                if (Number.isInteger(Number(pageInput))) {
-                  setSearchParams("?page=" + pageInput);
+                const pageQuery = Number(pageInput);
+                if (
+                  Number.isInteger(pageQuery) &&
+                  pageQuery > 0 &&
+                  pageQuery <= lastPage
+                ) {
+                  urlSearchParams.delete("page");
+                  urlSearchParams.append("page", pageQuery);
+                  setSearchParams(urlSearchParams);
                 }
               }}
             >
