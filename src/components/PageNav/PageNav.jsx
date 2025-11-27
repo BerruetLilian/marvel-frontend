@@ -4,7 +4,7 @@ import "./pageNav.css";
 const PageNav = ({ setSearchParams, urlSearchParams, lastPage }) => {
   const [showInput, setShowInput] = useState(false);
   const [pageInput, setPageInput] = useState("");
-  const currentPage = urlSearchParams.get("page") || 1;
+  const currentPage = (urlSearchParams && urlSearchParams.get("page")) || 1;
 
   const pageIndexes = () => {
     const results = [];
@@ -67,57 +67,61 @@ const PageNav = ({ setSearchParams, urlSearchParams, lastPage }) => {
     }
   };
   return (
-    <div className="page-nav">
-      <button onClick={handlePrev} disabled={currentPage === "1"}>
-        {"<"}
-      </button>
-      {pageIndexes().map((element, index) => {
-        if (Number(element)) {
-          return (
-            <a
-              key={element + index}
-              onClick={() => {
-                handleNumberNav(element);
-              }}
-            >
-              {element}
-            </a>
-          );
-        } else {
-          return <p key={element + index}>{element}</p>;
-        }
-      })}
-      <button onClick={handleNext} disabled={currentPage === lastPage}>
-        {">"}
-      </button>
-      <p>
-        Go to
-        {
-          <>
-            <input
-              className={showInput ? "show-input" : ""}
-              type="text"
-              onFocus={() => {
-                setShowInput(true);
-              }}
-              onBlur={() => {
-                setShowInput(false);
-              }}
-              value={pageInput}
-              onChange={(event) => {
-                setPageInput(event.target.value);
-              }}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  handleGoTo();
-                }
-              }}
-            />
-            <button onClick={handleGoTo}>page</button>
-          </>
-        }
-      </p>
-    </div>
+    <>
+      {lastPage !== "1" && (
+        <div className="page-nav">
+          <button onClick={handlePrev} disabled={currentPage === "1"}>
+            {"<"}
+          </button>
+          {pageIndexes().map((element, index) => {
+            if (Number(element)) {
+              return (
+                <a
+                  key={element + index}
+                  onClick={() => {
+                    handleNumberNav(element);
+                  }}
+                >
+                  {element}
+                </a>
+              );
+            } else {
+              return <p key={element + index}>{element}</p>;
+            }
+          })}
+          <button onClick={handleNext} disabled={currentPage === lastPage}>
+            {">"}
+          </button>
+          <p>
+            Go to
+            {
+              <>
+                <input
+                  className={showInput ? "show-input" : ""}
+                  type="text"
+                  onFocus={() => {
+                    setShowInput(true);
+                  }}
+                  onBlur={() => {
+                    setShowInput(false);
+                  }}
+                  value={pageInput}
+                  onChange={(event) => {
+                    setPageInput(event.target.value);
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      handleGoTo();
+                    }
+                  }}
+                />
+                <button onClick={handleGoTo}>page</button>
+              </>
+            }
+          </p>
+        </div>
+      )}
+    </>
   );
 };
 

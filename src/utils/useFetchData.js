@@ -1,37 +1,54 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetchData = (url, urlSearchParams, callBack) => {
+const useFetchData = (url, urlSearchParams, callBack, token = null) => {
   const [data, setData] = useState(null);
+
+  const generateFilter = (urlSearchParams) => {
+    let filter = "";
+    const page = urlSearchParams.get("page");
+    const name = urlSearchParams.get("name");
+    const title = urlSearchParams.get("title");
+    if (page) {
+      filter += "?skip=" + 100 * (page - 1);
+    }
+    if (name) {
+      if (!filter) {
+        filter += "?name=" + name;
+      } else {
+        filter += "&name=" + name;
+      }
+    }
+    if (title) {
+      if (!filter) {
+        filter += "?title=" + title;
+      } else {
+        filter += "&title=" + title;
+      }
+    }
+    return filter;
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
         let filter = "";
-        const page = urlSearchParams.get("page");
-        const name = urlSearchParams.get("name");
-        const title = urlSearchParams.get("title");
-        if (page) {
-          filter += "?skip=" + 100 * (page - 1);
+        if (urlSearchParams) {
+          filter = generateFilter(urlSearchParams);
         }
-        if (name) {
-          if (!filter) {
-            filter += "?name=" + name;
-          } else {
-            filter += "&name=" + name;
-          }
+        let options = {};
+        if (token) {
+          options = { headers: { authorization: "Bearer " + token } };
         }
-        if (title) {
-          if (!filter) {
-            filter += "?title=" + title;
-          } else {
-            filter += "&title=" + title;
-          }
-        }
-        const response = await axios.get(url + filter);
+        const response = await axios.get(url + filter, options);
+
         setData(response.data);
         callBack();
       } catch (error) {
-        console.log(error);
+        if (error.name === "AxiosError") {
+          console.log(error.response.data);
+        } else {
+          console.log(error);
+        }
       }
     };
     fetchData();
