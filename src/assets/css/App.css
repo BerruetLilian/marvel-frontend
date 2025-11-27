@@ -2,3 +2,7 @@ a,
 button {
   cursor: pointer;
 }
+
+.App {
+  position: relative;
+}

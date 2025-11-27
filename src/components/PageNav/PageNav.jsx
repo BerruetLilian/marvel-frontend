@@ -1,27 +1,12 @@
 import { useState } from "react";
 import "./pageNav.css";
-import { Link } from "react-router-dom";
 
-const PageNav = ({
-  lastPage,
-  currentPage,
-  setSearchParams,
-  urlSearchParams,
-}) => {
+const PageNav = ({ setSearchParams, urlSearchParams, lastPage }) => {
   const [showInput, setShowInput] = useState(false);
   const [pageInput, setPageInput] = useState("");
+  const currentPage = urlSearchParams.get("page") || 1;
 
-  const showPageIndex = () => {
-    // si currentpage <= 7 et lastpage < 7
-    // affiche de 1 à currentPage
-    // sinon
-    // si currentpage <= 5
-    // afficher 1 à 5 + "..." + lastPage
-    // sinon
-    //  currentpage > lastpage -4
-    // afficher 1 + ... + currentpage-1 + currentpage + currentpage+1 + ... + lastpage
-    // currentpage <= lastpage-4
-    // afficher ... + de lastpage-4 à lastpage
+  const pageIndexes = () => {
     const results = [];
     if (lastPage < 7) {
       for (let i = 1; i <= currentPage; i++) {
@@ -54,29 +39,45 @@ const PageNav = ({
     }
     return results;
   };
+
+  const handlePrev = () => {
+    if (currentPage !== "1") {
+      urlSearchParams.set("page", currentPage - 1);
+      setSearchParams(urlSearchParams);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage !== lastPage) {
+      urlSearchParams.set("page", Number(currentPage) + 1);
+      setSearchParams(urlSearchParams);
+    }
+  };
+
+  const handleNumberNav = (element) => {
+    urlSearchParams.set("page", element);
+    setSearchParams(urlSearchParams);
+  };
+
+  const handleGoTo = () => {
+    const pageQuery = Number(pageInput);
+    if (Number.isInteger(pageQuery) && pageQuery > 0 && pageQuery <= lastPage) {
+      urlSearchParams.set("page", pageQuery);
+      setSearchParams(urlSearchParams);
+    }
+  };
   return (
     <div className="page-nav">
-      <button
-        onClick={() => {
-          if (currentPage !== "1") {
-            urlSearchParams.delete("page");
-            urlSearchParams.append("page", currentPage - 1);
-            setSearchParams(urlSearchParams);
-          }
-        }}
-        disabled={currentPage === "1"}
-      >
+      <button onClick={handlePrev} disabled={currentPage === "1"}>
         {"<"}
       </button>
-      {showPageIndex().map((element, index) => {
+      {pageIndexes().map((element, index) => {
         if (Number(element)) {
           return (
             <a
               key={element + index}
               onClick={() => {
-                urlSearchParams.delete("page");
-                urlSearchParams.append("page", element);
-                setSearchParams(urlSearchParams);
+                handleNumberNav(element);
               }}
             >
               {element}
@@ -86,20 +87,11 @@ const PageNav = ({
           return <p key={element + index}>{element}</p>;
         }
       })}
-      <button
-        onClick={() => {
-          if (currentPage !== lastPage) {
-            urlSearchParams.delete("page");
-            urlSearchParams.append("page", Number(currentPage) + 1);
-            setSearchParams(urlSearchParams);
-          }
-        }}
-        disabled={currentPage === lastPage}
-      >
+      <button onClick={handleNext} disabled={currentPage === lastPage}>
         {">"}
       </button>
       <p>
-        Go to{" "}
+        Go to
         {
           <>
             <input
@@ -115,23 +107,13 @@ const PageNav = ({
               onChange={(event) => {
                 setPageInput(event.target.value);
               }}
-            />
-            <button
-              onClick={() => {
-                const pageQuery = Number(pageInput);
-                if (
-                  Number.isInteger(pageQuery) &&
-                  pageQuery > 0 &&
-                  pageQuery <= lastPage
-                ) {
-                  urlSearchParams.delete("page");
-                  urlSearchParams.append("page", pageQuery);
-                  setSearchParams(urlSearchParams);
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  handleGoTo();
                 }
               }}
-            >
-              page
-            </button>
+            />
+            <button onClick={handleGoTo}>page</button>
           </>
         }
       </p>

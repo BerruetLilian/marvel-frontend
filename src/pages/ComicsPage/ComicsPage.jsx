@@ -1,15 +1,15 @@
+import "./comicsPage.css";
 import { useState } from "react";
 import Carrousel from "../../components/Carrousel/Carrousel";
-import "./charactersPage.css";
 import { useSearchParams } from "react-router-dom";
 import useFetchData from "../../utils/useFetchData";
 import SearchInput from "../../components/SearchInput/SearchInput";
 
-const CharactersPage = () => {
+const ComicsPage = () => {
   const [urlSearchParams, setSearchParams] = useSearchParams("?page=1");
   const [loading, setLoading] = useState(true);
   const data = useFetchData(
-    "https://site--marvel-backend--h7xf99wskwy6.code.run/characters",
+    "https://site--marvel-backend--h7xf99wskwy6.code.run/comics",
     urlSearchParams,
     () => {
       setLoading(false);
@@ -22,7 +22,7 @@ const CharactersPage = () => {
       <SearchInput
         urlSearchParams={urlSearchParams}
         setSearchParams={setSearchParams}
-        queryName={"name"}
+        queryName={"title"}
       />
       <Carrousel
         data={data}
@@ -32,4 +32,4 @@ const CharactersPage = () => {
     </>
   );
 };
-export default CharactersPage;
+export default ComicsPage;

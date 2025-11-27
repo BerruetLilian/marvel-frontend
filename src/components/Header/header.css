@@ -1,0 +1,11 @@
+header img {
+  height: 100px;
+}
+header {
+  display: flex;
+  align-items: center;
+}
+
+header a {
+  margin-left: 20px;
+}
