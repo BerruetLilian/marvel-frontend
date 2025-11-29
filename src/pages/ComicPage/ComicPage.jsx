@@ -5,7 +5,7 @@ import ComicCard from "../../components/ComicCard/ComicCard";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const ComicPage = ({ token }) => {
+const ComicPage = ({ token, favorites, setFavorites }) => {
   const [loading, setLoading] = useState(true);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
   const [errorFavorite, setErroFavorite] = useState(false);
@@ -30,7 +30,11 @@ const ComicPage = ({ token }) => {
           { type: "comic" },
           { headers: { authorization: "Bearer " + token } }
         );
-        console.log(response);
+        console.log(response.data);
+        const copy = [...favorites];
+        copy.push(response.data.result);
+        setFavorites(copy);
+        setFavoriteLoading(false);
       } catch (error) {
         console.log(error);
       }

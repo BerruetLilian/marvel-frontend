@@ -1,6 +1,7 @@
 import "./characterCard.css";
 import getThumbnailUrl from "../../utils/getThumbnailUrl.js";
 import { Link } from "react-router-dom";
+import FavoriteToggle from "../FavoriteToggle/FavoriteToggle.jsx";
 
 const CharacterCard = ({ character }) => {
   return (
@@ -10,6 +11,7 @@ const CharacterCard = ({ character }) => {
       </Link>
       <p>{character.name}</p>
       <p>{character.description}</p>
+      <FavoriteToggle />
     </div>
   );
 };

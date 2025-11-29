@@ -68,7 +68,7 @@ const PageNav = ({ setSearchParams, urlSearchParams, lastPage }) => {
   };
   return (
     <>
-      {lastPage !== "1" && (
+      {Number(lastPage) > 1 && (
         <div className="page-nav">
           <button onClick={handlePrev} disabled={currentPage === "1"}>
             {"<"}

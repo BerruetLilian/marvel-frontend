@@ -14,16 +14,31 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import ComicPage from "./pages/ComicPage/ComicPage";
+import useFetchData from "./utils/useFetchData";
 
 //site--marvel-backend--h7xf99wskwy6.code.run
 const App = () => {
   const [signInVisible, setSignInVisible] = useState(false);
   const [signUpVisible, setSignUpVisible] = useState(false);
   const [token, setToken] = useState(Cookies.get("token"));
+  const [loading, setLoading] = useState(true);
+  // if (token) {
+  //   const data = useFetchData(
+  //     "https://site--marvel-backend--h7xf99wskwy6.code.run/user/favorites",
+  //     null,
+  //     () => {
+  //       setLoading(false);
+  //     },
+  //     token
+  //   );
+  // }
+
+  const [favorites, setFavorites] = useState([data]);
 
   return (
     <div className="App">
       <Router>
+        <div className="pot">TEXT</div>
         <Header
           setSignInVisible={setSignInVisible}
           setSignUpVisible={setSignUpVisible}
@@ -34,7 +49,16 @@ const App = () => {
           <Route path="/characters" element={<CharactersPage />} />
           <Route path="/comics" element={<ComicsPage />} />
           <Route path="/favorites" element={<FavoritesPage token={token} />} />
-          <Route path="/comic/:comicId" element={<ComicPage token={token} />} />
+          <Route
+            path="/comic/:comicId"
+            element={
+              <ComicPage
+                token={token}
+                favorites={favorites}
+                setFavorites={setFavorites}
+              />
+            }
+          />
           <Route path="*" element={<Navigate to="/characters" />} />
         </Routes>
         {signUpVisible && (
