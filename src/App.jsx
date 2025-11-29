@@ -32,7 +32,6 @@ const App = () => {
       setFavorites(data);
     }
   );
-  console.log(favorites);
 
   return (
     <div className="App">

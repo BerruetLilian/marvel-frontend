@@ -33,9 +33,6 @@ export const useFetchDataFilter = (
         }
         const response = await axios.get(url + filter);
         setData(response.data);
-        console.log("fileter =>", url + filter);
-        console.log("useFetchDataFilter =>", response.data);
-
         callBack();
       } catch (error) {
         if (error.name === "AxiosError") {
@@ -60,7 +57,6 @@ export const useFetchDataToken = (url, token, callBack = new Function()) => {
         };
 
         const response = await axios.get(url, options);
-        console.log("useFetchDataToken => ", response.data);
         setData(response.data);
         callBack(response.data);
       } catch (error) {
@@ -83,7 +79,6 @@ export const useFetchData = (url, callBack = new Function()) => {
       try {
         const response = await axios.get(url);
         setData(response.data);
-        console.log("useFetchData => ", response.data);
         callBack();
       } catch (error) {
         if (error.name === "AxiosError") {
