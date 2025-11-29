@@ -2,13 +2,13 @@ import "./comicsPage.css";
 import { useState } from "react";
 import Carrousel from "../../components/Carrousel/Carrousel";
 import { useSearchParams } from "react-router-dom";
-import useFetchData from "../../utils/useFetchData";
+import { useFetchDataFilter } from "../../utils/useFetchData";
 import SearchInput from "../../components/SearchInput/SearchInput";
 
-const ComicsPage = () => {
+const ComicsPage = ({ favorites, setFavorites, token }) => {
   const [urlSearchParams, setSearchParams] = useSearchParams("?page=1");
   const [loading, setLoading] = useState(true);
-  const data = useFetchData(
+  const data = useFetchDataFilter(
     "https://site--marvel-backend--h7xf99wskwy6.code.run/comics",
     urlSearchParams,
     () => {
@@ -28,6 +28,9 @@ const ComicsPage = () => {
         data={data}
         setSearchParams={setSearchParams}
         urlSearchParams={urlSearchParams}
+        favorites={favorites}
+        setFavorites={setFavorites}
+        token={token}
       />
     </>
   );

@@ -23,7 +23,6 @@ const SignUpModal = ({ setSignUpVisible, setSignInVisible, setToken }) => {
             password: password,
           }
         );
-        console.log(response.data);
         Cookies.set("token", response.data.token, { expires: 30 });
         setToken(response.data.token);
         setLoading(false);

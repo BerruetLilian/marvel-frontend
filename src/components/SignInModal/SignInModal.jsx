@@ -4,8 +4,14 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import axios from "axios";
+import { getFavorites } from "../../utils/favoriteHandler";
 
-const SignInModal = ({ setSignInVisible, setSignUpVisible, setToken }) => {
+const SignInModal = ({
+  setSignInVisible,
+  setSignUpVisible,
+  setToken,
+  setFavorites,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,9 +31,12 @@ const SignInModal = ({ setSignInVisible, setSignUpVisible, setToken }) => {
         );
         Cookies.set("token", response.data.token, { expires: 30 });
         setToken(response.data.token);
-        setLoading(false);
-        setSignInVisible(false);
-        navigate("/");
+        getFavorites(response.data.token, (data) => {
+          setFavorites(data);
+          setLoading(false);
+          setSignInVisible(false);
+          navigate("/");
+        });
       } catch (error) {
         console.log(error);
         setLoading(false);

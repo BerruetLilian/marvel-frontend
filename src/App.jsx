@@ -14,26 +14,25 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import ComicPage from "./pages/ComicPage/ComicPage";
-import useFetchData from "./utils/useFetchData";
+import { useFetchDataToken } from "./utils/useFetchData";
+import CharacterPage from "./pages/CharacterPage/Characterpage";
 
 //site--marvel-backend--h7xf99wskwy6.code.run
 const App = () => {
   const [signInVisible, setSignInVisible] = useState(false);
   const [signUpVisible, setSignUpVisible] = useState(false);
-  const [token, setToken] = useState(Cookies.get("token"));
   const [loading, setLoading] = useState(true);
-  // if (token) {
-  //   const data = useFetchData(
-  //     "https://site--marvel-backend--h7xf99wskwy6.code.run/user/favorites",
-  //     null,
-  //     () => {
-  //       setLoading(false);
-  //     },
-  //     token
-  //   );
-  // }
-
-  const [favorites, setFavorites] = useState([data]);
+  const [token, setToken] = useState(Cookies.get("token"));
+  const [favorites, setFavorites] = useState([]);
+  useFetchDataToken(
+    "https://site--marvel-backend--h7xf99wskwy6.code.run/user/favorites",
+    token,
+    (data) => {
+      setLoading(false);
+      setFavorites(data);
+    }
+  );
+  console.log(favorites);
 
   return (
     <div className="App">
@@ -46,13 +45,51 @@ const App = () => {
           token={token}
         />
         <Routes>
-          <Route path="/characters" element={<CharactersPage />} />
-          <Route path="/comics" element={<ComicsPage />} />
-          <Route path="/favorites" element={<FavoritesPage token={token} />} />
+          <Route
+            path="/characters"
+            element={
+              <CharactersPage
+                favorites={favorites}
+                setFavorites={setFavorites}
+                token={token}
+              />
+            }
+          />
+          <Route
+            path="/comics"
+            element={
+              <ComicsPage
+                favorites={favorites}
+                setFavorites={setFavorites}
+                token={token}
+              />
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <FavoritesPage
+                token={token}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                loading={loading}
+              />
+            }
+          />
           <Route
             path="/comic/:comicId"
             element={
               <ComicPage
+                token={token}
+                favorites={favorites}
+                setFavorites={setFavorites}
+              />
+            }
+          />
+          <Route
+            path="/character/:characterId"
+            element={
+              <CharacterPage
                 token={token}
                 favorites={favorites}
                 setFavorites={setFavorites}
@@ -72,6 +109,7 @@ const App = () => {
           <SignInModal
             setSignUpVisible={setSignUpVisible}
             setSignInVisible={setSignInVisible}
+            setFavorites={setFavorites}
             setToken={setToken}
           />
         )}
