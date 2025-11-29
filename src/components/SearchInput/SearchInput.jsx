@@ -18,7 +18,6 @@ const SearchInput = ({ urlSearchParams, setSearchParams, queryName }) => {
       const response = await axios.get(
         `https://site--marvel-backend--h7xf99wskwy6.code.run/${type}?limit=4&${queryName}=${value}`
       );
-      console.log(response.data);
       setSuggestions(response.data.results);
     } catch (error) {
       if (error.name === "AxiosError") {
