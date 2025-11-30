@@ -23,6 +23,8 @@ const FavoriteToggle = ({ token, element, favorites, setFavorites }) => {
     if (!isFavorite) {
       const type = element.name ? "character" : "comic";
       addFavorite(token, element._id, type, (data) => {
+        console.log(data);
+
         const copy = { ...favorites };
         copy.results.push(data);
         copy.count++;
