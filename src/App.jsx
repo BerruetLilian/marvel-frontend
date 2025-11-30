@@ -15,7 +15,7 @@ import Cookies from "js-cookie";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import ComicPage from "./pages/ComicPage/ComicPage";
 import { useFetchDataToken } from "./utils/useFetchData";
-import CharacterPage from "./pages/CharacterPage/Characterpage";
+import CharacterPage from "./pages/CharacterPage/CharacterPage";
 import BackgroundSlide from "./components/BackgroundSlide/BackgroundSlide";
 
 //site--marvel-backend--h7xf99wskwy6.code.run
