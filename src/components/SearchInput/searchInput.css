@@ -1,0 +1,19 @@
+.search-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input input {
+  background-color: inherit;
+  border: none;
+  border-bottom: solid 2px white;
+  color: white;
+  outline: none;
+  height: 45px;
+  font-size: 22px;
+}
+
+.search-input svg {
+  font-size: 25px;
+}

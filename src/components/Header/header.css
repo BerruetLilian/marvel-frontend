@@ -9,8 +9,53 @@ header img {
 header .container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-header a {
-  margin-left: 20px;
+header .nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.nav-btn a:not(:first-child) {
+  border-left: solid 1px white;
+  border-right: solid 1px white;
+  padding: 0 30px;
+  height: 100%;
+}
+
+.nav-btn a:not(:first-child):hover {
+  opacity: 0.8;
+}
+
+header .auth-btn {
+  display: flex;
+  gap: 10px;
+}
+
+header .auth-btn button {
+  background-color: white;
+  color: black;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  padding: 8px;
+  font-weight: 700;
+}
+
+header .auth-btn button:hover {
+  opacity: 0.8;
+}
+
+header .auth-btn .logout-btn {
+  background-color: #ec0f19;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: 700;
+  color: white;
 }

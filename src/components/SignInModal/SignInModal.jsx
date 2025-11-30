@@ -11,16 +11,17 @@ const SignInModal = ({
   setSignUpVisible,
   setToken,
   setFavorites,
+  setLoading,
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loadingButton, setLoadingButton] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!loading) {
-      setLoading(true);
+    if (!loadingButton) {
+      setLoadingButton(true);
       try {
         const response = await axios.post(
           "https://site--marvel-backend--h7xf99wskwy6.code.run/user/login",
@@ -33,20 +34,21 @@ const SignInModal = ({
         setToken(response.data.token);
         getFavorites(response.data.token, (data) => {
           setFavorites(data);
-          setLoading(false);
+          setLoadingButton(false);
           setSignInVisible(false);
+          setLoading(false);
           navigate("/");
         });
       } catch (error) {
         console.log(error);
-        setLoading(false);
+        setLoadingButton(false);
       }
     }
   };
 
   return (
     <Modal toggleModal={setSignInVisible}>
-      <h1>Se connecter</h1>
+      <h1>Se Connecter</h1>
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Adresse email"
@@ -64,7 +66,7 @@ const SignInModal = ({
             setPassword(event.target.value);
           }}
         />
-        <button disabled={loading}>Se connecter</button>
+        <button disabled={loadingButton}>Se Connecter</button>
       </form>
       <p
         onClick={() => {

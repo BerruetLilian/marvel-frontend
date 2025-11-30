@@ -29,6 +29,8 @@ const App = () => {
     "https://site--marvel-backend--h7xf99wskwy6.code.run/user/favorites",
     token,
     (data) => {
+      console.log("ici");
+
       setLoading(false);
       setFavorites(data);
     }
@@ -103,6 +105,7 @@ const App = () => {
             setSignUpVisible={setSignUpVisible}
             setSignInVisible={setSignInVisible}
             setToken={setToken}
+            setLoading={setLoading}
           />
         )}
         {signInVisible && (
@@ -111,6 +114,7 @@ const App = () => {
             setSignInVisible={setSignInVisible}
             setFavorites={setFavorites}
             setToken={setToken}
+            setLoading={setLoading}
           />
         )}
       </Router>

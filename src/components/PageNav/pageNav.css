@@ -1,17 +1,49 @@
 .page-nav {
   display: flex;
   align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  height: 45px;
 }
 .page-nav input {
   border: none;
   text-align: center;
-  width: 100px;
-}
-
-.page-nav .show-input {
-  height: 45px;
+  width: 30px;
+  margin-right: 5px;
+  background-color: inherit;
+  border-bottom: solid 2px white;
+  outline: none;
+  color: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 30px;
 }
 
 .page-nav a {
   margin: 5px;
+}
+
+.page-nav a:hover {
+  font-size: 22px;
+}
+
+.page-nav button {
+  border: none;
+  background-color: inherit;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.page-nav .go-btn {
+  border: solid 1px white;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.page-nav button:hover {
+  font-size: 22px;
+}
+
+.page-nav .current-page {
+  color: #ec0f19;
 }

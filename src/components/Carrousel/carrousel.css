@@ -1,6 +1,9 @@
 .carrousel {
-  height: 500px;
+  height: 100%;
   overflow: scroll;
   display: flex;
   flex-wrap: wrap;
+  gap: 15px;
+  /* border: 1px solid white; */
+  padding: 10px;
 }

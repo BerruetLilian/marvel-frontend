@@ -1,15 +1,13 @@
 .character-card {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: calc((100% - 60px) / 4);
   position: relative;
+  align-items: center;
+  gap: 10px;
 }
 
-/* .character-card:hover {
-  top: 100px;
-} */
-
-.image-container {
+.character-card .image-container {
   position: relative;
   width: 200px;
   height: 300px;
@@ -31,6 +29,11 @@
   top: 15px;
   right: 5px;
   z-index: 2;
+  opacity: 0.5;
+}
+
+.character-card .favorite-toggle:hover {
+  opacity: 1;
 }
 
 .character-card .description {

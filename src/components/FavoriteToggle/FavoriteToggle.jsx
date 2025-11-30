@@ -7,6 +7,9 @@ import { FaRegHeart } from "react-icons/fa6";
 
 const FavoriteToggle = ({ token, element, favorites, setFavorites }) => {
   const initializeFavorite = () => {
+    if (!favorites.results) {
+      return null;
+    }
     for (let favorite of favorites.results) {
       if (favorite.apiId === element._id || favorite.apiId === element.apiId) {
         return favorite;

@@ -15,24 +15,34 @@ const ComicsPage = ({ favorites, setFavorites, token }) => {
       setLoading(false);
     }
   );
-  return loading ? (
-    <div>ça laode fort...</div>
-  ) : (
-    <>
-      <SearchInput
-        urlSearchParams={urlSearchParams}
-        setSearchParams={setSearchParams}
-        queryName={"title"}
-      />
-      <Carrousel
-        data={data}
-        setSearchParams={setSearchParams}
-        urlSearchParams={urlSearchParams}
-        favorites={favorites}
-        setFavorites={setFavorites}
-        token={token}
-      />
-    </>
+  return (
+    <div className="comics-page">
+      <div className="container">
+        {loading ? (
+          <div>loading...</div>
+        ) : (
+          <>
+            <SearchInput
+              urlSearchParams={urlSearchParams}
+              setSearchParams={setSearchParams}
+              queryName={"title"}
+            />
+            {data.results.length ? (
+              <Carrousel
+                data={data}
+                setSearchParams={setSearchParams}
+                urlSearchParams={urlSearchParams}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                token={token}
+              />
+            ) : (
+              <p className="no-results">Pas de résultats</p>
+            )}
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 export default ComicsPage;

@@ -5,16 +5,21 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const SignUpModal = ({ setSignUpVisible, setSignInVisible, setToken }) => {
+const SignUpModal = ({
+  setSignUpVisible,
+  setSignInVisible,
+  setToken,
+  setLoading,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loadingButton, setLoadingButton] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!loading) {
-      setLoading(true);
+    if (!loadingButton) {
+      setLoadingButton(true);
       try {
         const response = await axios.post(
           "https://site--marvel-backend--h7xf99wskwy6.code.run/user/signup",
@@ -25,12 +30,13 @@ const SignUpModal = ({ setSignUpVisible, setSignInVisible, setToken }) => {
         );
         Cookies.set("token", response.data.token, { expires: 30 });
         setToken(response.data.token);
-        setLoading(false);
+        setLoadingButton(false);
         setSignUpVisible(false);
+        setLoading(true);
         navigate("/");
       } catch (error) {
         console.log(error);
-        setLoading(false);
+        setLoadingButton(false);
       }
     }
   };
@@ -39,7 +45,7 @@ const SignUpModal = ({ setSignUpVisible, setSignInVisible, setToken }) => {
       <h1>Créer un compte</h1>
       <form onSubmit={handleSubmit}>
         <input
-          placeholder="Email"
+          placeholder="Adresse email"
           type="text"
           value={email}
           onChange={(event) => {
@@ -54,7 +60,7 @@ const SignUpModal = ({ setSignUpVisible, setSignInVisible, setToken }) => {
             setPassword(event.target.value);
           }}
         />
-        <button disabled={loading}>S'inscrire</button>
+        <button disabled={loadingButton}>S'inscrire</button>
       </form>
       <p
         onClick={() => {

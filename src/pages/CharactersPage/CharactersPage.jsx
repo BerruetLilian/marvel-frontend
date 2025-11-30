@@ -19,7 +19,7 @@ const CharactersPage = ({ favorites, setFavorites, token }) => {
     <div className="characters-page">
       <div className="container">
         {loading ? (
-          <div>ça laode fort...</div>
+          <div>loading...</div>
         ) : (
           <>
             <SearchInput
@@ -27,14 +27,18 @@ const CharactersPage = ({ favorites, setFavorites, token }) => {
               setSearchParams={setSearchParams}
               queryName={"name"}
             />
-            <Carrousel
-              data={data}
-              setSearchParams={setSearchParams}
-              urlSearchParams={urlSearchParams}
-              favorites={favorites}
-              setFavorites={setFavorites}
-              token={token}
-            />
+            {data.results.length ? (
+              <Carrousel
+                data={data}
+                setSearchParams={setSearchParams}
+                urlSearchParams={urlSearchParams}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                token={token}
+              />
+            ) : (
+              <p className="no-results">Pas de résultats</p>
+            )}
           </>
         )}
       </div>

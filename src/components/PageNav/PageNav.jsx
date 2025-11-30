@@ -81,6 +81,9 @@ const PageNav = ({ setSearchParams, urlSearchParams, lastPage }) => {
                   onClick={() => {
                     handleNumberNav(element);
                   }}
+                  className={
+                    String(element) === currentPage ? "current-page" : ""
+                  }
                 >
                   {element}
                 </a>
@@ -93,7 +96,6 @@ const PageNav = ({ setSearchParams, urlSearchParams, lastPage }) => {
             {">"}
           </button>
           <p>
-            Go to
             {
               <>
                 <input
@@ -114,8 +116,11 @@ const PageNav = ({ setSearchParams, urlSearchParams, lastPage }) => {
                       handleGoTo();
                     }
                   }}
+                  placeholder="..."
                 />
-                <button onClick={handleGoTo}>page</button>
+                <button onClick={handleGoTo} className="go-btn">
+                  Page
+                </button>
               </>
             }
           </p>

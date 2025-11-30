@@ -17,7 +17,7 @@ const CharacterCard = ({ token, character, favorites, setFavorites }) => {
       }}
     >
       <div className="image-container">
-        <img src={getThumbnailUrl(character, "portrait_xlarge")} />
+        <img src={getThumbnailUrl(character, "portrait_medium")} />
 
         <FavoriteToggle
           token={token}

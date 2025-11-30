@@ -8,24 +8,69 @@
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
 }
 
 .modal-content {
   position: relative;
-  background-color: white;
+  background-color: #151515;
   width: 700px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 30px;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .leave-button {
   position: absolute;
   right: 10px;
   top: 10px;
-  background-color: white;
   border: none;
   cursor: pointer;
   font-size: 20px;
+  color: white;
+  background-color: inherit;
+}
+
+.modal-content h1 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 40px;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.modal-content form input {
+  outline: none;
+  color: white;
+  border: none;
+  border-bottom: solid 2px white;
+  background-color: inherit;
+  font-size: 18px;
+}
+
+.modal-content > p {
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.modal-content form button {
+  background-color: #ec0f19;
+  border: none;
+  font-size: 18px;
+  border-radius: 8px;
+  padding: 8px;
+  font-weight: 700;
+}
+
+.modal-content form button:hover {
+  opacity: 0.8;
 }
