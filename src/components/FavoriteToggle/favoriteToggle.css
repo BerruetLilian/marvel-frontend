@@ -1,0 +1,10 @@
+.favorite-toggle {
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

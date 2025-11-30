@@ -30,6 +30,8 @@ export const addFavorite = async (token, id, type, callBack) => {
     callBack(response.data.result);
   } catch (error) {
     if (error.name === "AxiosError") {
+      console.log(error);
+
       console.log(error.response.data);
     } else {
       console.log(error);

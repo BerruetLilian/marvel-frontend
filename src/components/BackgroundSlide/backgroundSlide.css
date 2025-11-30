@@ -1,0 +1,43 @@
+.slide {
+  position: absolute;
+  z-index: -1;
+  border-bottom: 2px solid #444444;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 300vw;
+  opacity: 0.3;
+}
+
+.slide img {
+  width: 5vw;
+  flex-shrink: 0;
+  height: 5vw;
+}
+
+.background-slide .slide:nth-child(even) {
+  animation: linear infinite;
+  animation-name: run;
+  animation-duration: 300s;
+}
+@keyframes run {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -200vw;
+  }
+}
+
+.background-slide .slide:nth-child(odd) {
+  animation: linear infinite;
+  animation-name: run-offset;
+  animation-duration: 300s;
+}
+@keyframes run-offset {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: -200vw;
+  }
+}

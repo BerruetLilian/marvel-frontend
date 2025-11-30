@@ -3,6 +3,7 @@ import { FaHeart } from "react-icons/fa";
 import { addFavorite } from "../../utils/favoriteHandler";
 import { useState } from "react";
 import { removeFavorite } from "../../utils/favoriteHandler";
+import { FaRegHeart } from "react-icons/fa6";
 
 const FavoriteToggle = ({ token, element, favorites, setFavorites }) => {
   const initializeFavorite = () => {
@@ -14,7 +15,8 @@ const FavoriteToggle = ({ token, element, favorites, setFavorites }) => {
     return null;
   };
   const [isFavorite, setIsFavorite] = useState(initializeFavorite());
-  const handleAddFavorite = async () => {
+  const handleAddFavorite = async (event) => {
+    event.stopPropagation();
     if (!isFavorite) {
       const type = element.name ? "character" : "comic";
       addFavorite(token, element._id, type, (data) => {
@@ -35,11 +37,22 @@ const FavoriteToggle = ({ token, element, favorites, setFavorites }) => {
     }
   };
   return (
-    <div>
-      <FaHeart
-        onClick={handleAddFavorite}
-        style={isFavorite ? { color: "red" } : { color: "green" }}
-      />
+    <div className="favorite-toggle">
+      {isFavorite ? (
+        <FaHeart
+          onClick={(event) => {
+            handleAddFavorite(event);
+          }}
+          style={{ color: "red" }}
+        />
+      ) : (
+        <FaRegHeart
+          onClick={(event) => {
+            handleAddFavorite(event);
+          }}
+          style={{ color: "black" }}
+        />
+      )}
     </div>
   );
 };

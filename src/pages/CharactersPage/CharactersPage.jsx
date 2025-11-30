@@ -15,24 +15,30 @@ const CharactersPage = ({ favorites, setFavorites, token }) => {
       setLoading(false);
     }
   );
-  return loading ? (
-    <div>ça laode fort...</div>
-  ) : (
-    <>
-      <SearchInput
-        urlSearchParams={urlSearchParams}
-        setSearchParams={setSearchParams}
-        queryName={"name"}
-      />
-      <Carrousel
-        data={data}
-        setSearchParams={setSearchParams}
-        urlSearchParams={urlSearchParams}
-        favorites={favorites}
-        setFavorites={setFavorites}
-        token={token}
-      />
-    </>
+  return (
+    <div className="characters-page">
+      <div className="container">
+        {loading ? (
+          <div>ça laode fort...</div>
+        ) : (
+          <>
+            <SearchInput
+              urlSearchParams={urlSearchParams}
+              setSearchParams={setSearchParams}
+              queryName={"name"}
+            />
+            <Carrousel
+              data={data}
+              setSearchParams={setSearchParams}
+              urlSearchParams={urlSearchParams}
+              favorites={favorites}
+              setFavorites={setFavorites}
+              token={token}
+            />
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 export default CharactersPage;

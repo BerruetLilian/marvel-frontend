@@ -1,7 +1,12 @@
+header {
+  background-color: #151515;
+}
+
 header img {
   height: 100px;
 }
-header {
+
+header .container {
   display: flex;
   align-items: center;
 }

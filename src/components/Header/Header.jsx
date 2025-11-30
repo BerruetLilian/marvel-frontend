@@ -6,40 +6,42 @@ import Cookies from "js-cookie";
 const Header = ({ setSignInVisible, setSignUpVisible, setToken, token }) => {
   return (
     <header>
-      <Link to="/">
-        <img src={logo} alt="logo marvel" />
-      </Link>
-      <Link to="/characters">Personnages</Link>
-      <Link to="/comics">Comics</Link>
-      <Link to="/favorites">Favoris</Link>
-      {token ? (
-        <button
-          onClick={() => {
-            setToken(null);
-            Cookies.remove("token");
-          }}
-        >
-          Se déconnecter
-        </button>
-      ) : (
-        <>
-          {" "}
+      <div className="container">
+        <Link to="/">
+          <img src={logo} alt="logo marvel" />
+        </Link>
+        <Link to="/characters">Personnages</Link>
+        <Link to="/comics">Comics</Link>
+        <Link to="/favorites">Favoris</Link>
+        {token ? (
           <button
             onClick={() => {
-              setSignInVisible(true);
+              setToken(null);
+              Cookies.remove("token");
             }}
           >
-            Se connecter
+            Se déconnecter
           </button>
-          <button
-            onClick={() => {
-              setSignUpVisible(true);
-            }}
-          >
-            Créer un compte
-          </button>
-        </>
-      )}
+        ) : (
+          <>
+            {" "}
+            <button
+              onClick={() => {
+                setSignInVisible(true);
+              }}
+            >
+              Se connecter
+            </button>
+            <button
+              onClick={() => {
+                setSignUpVisible(true);
+              }}
+            >
+              Créer un compte
+            </button>
+          </>
+        )}
+      </div>
     </header>
   );
 };

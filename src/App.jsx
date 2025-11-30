@@ -16,6 +16,7 @@ import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import ComicPage from "./pages/ComicPage/ComicPage";
 import { useFetchDataToken } from "./utils/useFetchData";
 import CharacterPage from "./pages/CharacterPage/Characterpage";
+import BackgroundSlide from "./components/BackgroundSlide/BackgroundSlide";
 
 //site--marvel-backend--h7xf99wskwy6.code.run
 const App = () => {
@@ -36,13 +37,13 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <div className="pot">TEXT</div>
         <Header
           setSignInVisible={setSignInVisible}
           setSignUpVisible={setSignUpVisible}
           setToken={setToken}
           token={token}
         />
+        <BackgroundSlide />
         <Routes>
           <Route
             path="/characters"

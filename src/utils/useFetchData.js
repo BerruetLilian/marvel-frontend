@@ -79,7 +79,8 @@ export const useFetchData = (url, callBack = new Function()) => {
       try {
         const response = await axios.get(url);
         setData(response.data);
-        callBack();
+        console.log(response.data);
+        callBack(response.data);
       } catch (error) {
         if (error.name === "AxiosError") {
           console.log(error.response.data);
