@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useFetchData } from "../../utils/useFetchData";
 import "./comicPage.css";
-import ComicCard from "../../components/ComicCard/ComicCard";
 import { useParams } from "react-router-dom";
+import getThumbnailUrl from "../../utils/getThumbnailUrl";
 
-const ComicPage = ({ token, favorites, setFavorites }) => {
+const ComicPage = () => {
   const [loading, setLoading] = useState(true);
   const { comicId } = useParams();
   const data = useFetchData(
@@ -19,12 +19,25 @@ const ComicPage = ({ token, favorites, setFavorites }) => {
         <p>loading...</p>
       ) : (
         <>
-          <ComicCard
-            comic={data}
-            token={token}
-            favorites={favorites}
-            setFavorites={setFavorites}
-          />
+          <div className="comic-page">
+            <div className="container">
+              <h1>{data.title}</h1>
+              <div className="content">
+                <img
+                  src={getThumbnailUrl(data, "portrait_incredible")}
+                  alt="comic illustration"
+                />
+                <div>
+                  <h2>Description :</h2>
+                  {data.description ? (
+                    <p>{data.description}</p>
+                  ) : (
+                    <p className="no-results">Pas de description</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         </>
       )}
     </>

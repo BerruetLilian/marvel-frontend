@@ -1,0 +1,35 @@
+.character-page .container {
+  background-color: rgb(32, 28, 28);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100vh - 100px);
+  padding: 20px;
+  gap: 15px;
+  font-size: 16px;
+}
+.character-page h1 {
+  font-size: 22px;
+  font-weight: 700;
+}
+.character-page .no-results {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.character-page .character-comics {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow: scroll;
+}
+
+.character-page h2 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.character-page .container > p {
+  margin: 0 30px;
+}
